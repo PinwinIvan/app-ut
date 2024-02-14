@@ -11,7 +11,7 @@ export class FoodService {
       id:1,
       name:'Pizza',
       description:'1800KCal',
-      image: 'https://www.seriouseats.com/thmb/mZn4RCinpBV-ONNkvMabIGq4rJY=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__images__2016__07__20160707-legumes-red-kidney-beans-vicky-wasik-4-7835e58628a94f3fba1ad8d2defc3137.jpg',
+      image: 'https://www.bhg.com/thmb/49ZhpV0sEAvrQGm55x0VIk7tuSQ=/1244x0/filters:no_upscale():strip_icc()/deep-dish-pizza-R162090-31bde0c81270469d8bdbc3c25107eda6.jpg',
       category: 'food',
       price: 250
     },
