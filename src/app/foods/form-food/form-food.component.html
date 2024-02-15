@@ -1,1 +1,26 @@
 <p>form-food works!</p>
+
+<div [FormGroup]="addMenuItem">
+<mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="foodName" placeholder="New Dish Name">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Price</mat-label>
+    <input matInput>
+  </mat-form-field>
+  
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select>
+      <mat-option value="one">drink</mat-option>
+      <mat-option value="two">food</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Description</mat-label>
+    <textarea matInput></textarea>
+  </mat-form-field>
+</div>
