@@ -28,7 +28,7 @@ export class LayoutComponent {
     {
       icon: '',
       label: 'Crear comida',
-      routerLink:'food/form-food'
+      routerLink:'food/form'
     }
 
 ]

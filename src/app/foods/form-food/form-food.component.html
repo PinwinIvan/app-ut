@@ -1,26 +1,39 @@
 <p>form-food works!</p>
 
-<div [FormGroup]="addMenuItem">
+<form [formGroup]="addMenuItem">
 <mat-form-field>
     <mat-label>Name</mat-label>
-    <input matInput formControlName="foodName" placeholder="New Dish Name">
+    <input matInput formControlName="foodName" placeholder="New Dish Name" required>
+      @if (foodName?.invalid && (foodName?.dirty || foodName?.touched)) {
+          @if (foodName?.hasError('required')) {
+        <mat-error>Este campo no puede estar vacio.</mat-error>
+         }
+      }
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Price</mat-label>
-    <input matInput>
+    <input matInput formControlName="foodPrice" required>
   </mat-form-field>
   
   <mat-form-field>
     <mat-label>Category</mat-label>
-    <mat-select>
-      <mat-option value="one">drink</mat-option>
-      <mat-option value="two">food</mat-option>
+    <mat-select formControlName="foodCategory" required>
+      <mat-option value="one">Drink</mat-option>
+      <mat-option value="two">Food</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Description</mat-label>
-    <textarea matInput></textarea>
+    <textarea matInput formControlName="foodDesc"></textarea>
   </mat-form-field>
-</div>
+
+  <mat-form-field>
+    <mat-label>Image</mat-label>
+    <textarea matInput formControlName="foodImage"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+  <button mat-button>Submit</button>
+</mat-form-field>
+</form>
