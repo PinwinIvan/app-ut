@@ -1,39 +1,87 @@
-<p>form-food works!</p>
+<form [formGroup]="addMenuItem" class="max-w-3xl p-4">
 
-<form [formGroup]="addMenuItem">
-<mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="foodName" placeholder="New Dish Name" required>
+<div class="example-container pb-2">
+  <mat-form-field class="w-full" appearance="outline">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="foodName" placeholder="Nombre del Platillo" required>
       @if (foodName?.invalid && (foodName?.dirty || foodName?.touched)) {
-          @if (foodName?.hasError('required')) {
-        <mat-error>Este campo no puede estar vacio.</mat-error>
-         }
+        <mat-error>
+        @if (foodName?.hasError('required')) {
+        <span class="text-xs">Este campo no puede estar vacio.</span>
+        }
+        </mat-error>
       }
   </mat-form-field>
+</div>
 
-  <mat-form-field>
-    <mat-label>Price</mat-label>
-    <input matInput formControlName="foodPrice" required>
-  </mat-form-field>
-  
-  <mat-form-field>
+<div class="pb-2">  
+  <mat-form-field appearance="outline">
     <mat-label>Category</mat-label>
     <mat-select formControlName="foodCategory" required>
-      <mat-option value="one">Drink</mat-option>
-      <mat-option value="two">Food</mat-option>
+      <mat-option value="drink">Bebida</mat-option>
+      <mat-option value="food">Comida</mat-option>
     </mat-select>
+    @if (foodCategory?.invalid && (foodCategory?.dirty || foodCategory?.touched)) {
+      <mat-error>
+      @if (foodCategory?.hasError('required')) {
+      <span class="text-xs">Este campo no puede estar vacio.</span>
+      }
+      </mat-error>
+    }
   </mat-form-field>
+</div>
 
-  <mat-form-field>
-    <mat-label>Description</mat-label>
-    <textarea matInput formControlName="foodDesc"></textarea>
+<div class="pb-2">
+  <mat-form-field class="w-full" appearance="outline">
+    <mat-label>Descripción</mat-label>
+    <textarea matInput formControlName="foodDesc" required></textarea>
+    
+    @if (foodDesc?.invalid && (foodDesc?.dirty || foodDesc?.touched)){
+      <mat-error>
+        @if (foodDesc?.hasError('required')) {
+          <span class="text-xs">Campo Requerido.</span>
+        }
+        @if (foodDesc?.hasError('minLength')) {
+          <span class="text-xs">Minimo requerido de {{foodDesc?.getError('minLength').requiredLength}} caracteres, 
+                solo hay {{foodDesc?.getError('minLength').actualLength}} caracteres.</span>
+        }
+      </mat-error>
+    }
   </mat-form-field>
+</div>
 
-  <mat-form-field>
-    <mat-label>Image</mat-label>
-    <textarea matInput formControlName="foodImage"></textarea>
-  </mat-form-field>
-  <mat-form-field>
-  <button mat-button>Submit</button>
-</mat-form-field>
+  <div class="example-container pb-2">
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>Precio</mat-label>
+      <input matInput type="number" class="example-right-align" placeholder="0">
+      <span matTextPrefix>$&nbsp;</span>
+      <span matTextSuffix>.00</span>
+
+        @if (foodPrice?.invalid && (foodPrice?.dirty || foodPrice?.touched)) {
+          <mat-error>
+          @if (foodPrice?.hasError('required')) {
+          <span class="text-xs">Este campo no puede estar vacio.</span>
+          }
+          @if (foodPrice?.hasError('min')){
+              <span class="text-xs">El precio minimo es de {{foodPrice?.getError('min').min}}</span>
+          }
+          </mat-error>
+        }
+    </mat-form-field>
+  </div>
+
+  <div class="example-container pb-2">
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>Imagen</mat-label>
+      <input matInput formControlName="foodImage" placeholder="Ingrese URL." required>
+        @if (foodImage?.invalid && (foodImage?.dirty || foodImage?.touched)) {
+          <mat-error>
+          @if (foodImage?.hasError('required')) {
+          <span class="text-xs">Este campo no puede estar vacio.</span>
+          }
+          </mat-error>
+        }
+    </mat-form-field>
+  </div>
+
 </form>

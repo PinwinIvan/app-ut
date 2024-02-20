@@ -22,13 +22,29 @@ export class FormFoodComponent{
       foodCategory: ['', [Validators.required]],
       foodImage: ['', Validators.required],
       foodDesc: ['', [Validators.required, Validators.minLength(20)]],
-      foodPrice: ['', [Validators.required, Validators.min(0.1)]]
+      foodPrice: ['', [Validators.required, Validators.min(1)]]
 
-    })
+    });
 
     constructor(private formBuilder:FormBuilder){}
-
+    
     get foodName(){
       return this.addMenuItem.get('foodName')
     }
+
+    get foodCategory(){
+      return this.addMenuItem.get('foodCategory')
+    }
+
+    get foodImage(){
+      return this.addMenuItem.get('foodImage')
+    }
+
+    get foodDesc(){
+      return this.addMenuItem.get('foodDesc')
+    }
+    get foodPrice(){
+      return this.addMenuItem.get('foodPrice')
+    }
+    
 }
