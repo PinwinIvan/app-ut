@@ -1,5 +1,5 @@
 <form [formGroup]="addMenuItem" class="max-w-3xl p-4">
-
+<!--Name-->
 <div class="example-container pb-2">
   <mat-form-field class="w-full" appearance="outline">
     <mat-label>Nombre</mat-label>
@@ -13,7 +13,7 @@
       }
   </mat-form-field>
 </div>
-
+<!--Category-->
 <div class="pb-2">  
   <mat-form-field appearance="outline">
     <mat-label>Category</mat-label>
@@ -30,7 +30,7 @@
     }
   </mat-form-field>
 </div>
-
+<!--Description-->
 <div class="pb-2">
   <mat-form-field class="w-full" appearance="outline">
     <mat-label>Descripción</mat-label>
@@ -49,11 +49,11 @@
     }
   </mat-form-field>
 </div>
-
+<!--Precio-->
   <div class="example-container pb-2">
     <mat-form-field class="w-full" appearance="outline">
       <mat-label>Precio</mat-label>
-      <input matInput type="number" class="example-right-align" placeholder="0">
+      <input matInput type="number" formControlName="foodPrice" class="example-right-align" placeholder="0">
       <span matTextPrefix>$&nbsp;</span>
       <span matTextSuffix>.00</span>
 
@@ -69,7 +69,7 @@
         }
     </mat-form-field>
   </div>
-
+<!--Imagen-->
   <div class="example-container pb-2">
     <mat-form-field class="w-full" appearance="outline">
       <mat-label>Imagen</mat-label>
@@ -80,8 +80,10 @@
           <span class="text-xs">Este campo no puede estar vacio.</span>
           }
           </mat-error>
-        }
+        } 
     </mat-form-field>
   </div>
+  <button mat-raised-button color="#000000" (click)="sendMenuItem()">Enviar Datos</button>
+  <button mat-raised-button color="#000000">Errores</button>
 
 </form>

@@ -79,5 +79,13 @@ export class FoodService {
       return this.menu;
       
     }
-
+    public addNewMenuItem(food:Food){
+      this.menu.push(food)
+    }
+    public updateMenuItem(food:Food){
+        //this.menu.setValue()
+    }
+    public deleteMenuItem(food:Food) {
+      
+    }
 }
