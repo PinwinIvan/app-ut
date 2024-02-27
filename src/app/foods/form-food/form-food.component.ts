@@ -6,12 +6,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Food } from '../shared/food.model';
 import { FoodService } from '../shared/food.service';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
   selector: 'app-form-food',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule,FormsModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatSelectModule,FormsModule,MatButtonModule],
   templateUrl: './form-food.component.html',
   styleUrl: './form-food.component.scss'
 })

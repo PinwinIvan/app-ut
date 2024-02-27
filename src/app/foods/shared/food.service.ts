@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Food} from './food.model'
+import { log } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -82,10 +83,33 @@ export class FoodService {
     public addNewMenuItem(food:Food){
       this.menu.push(food)
     }
-    public updateMenuItem(food:Food){
-        //this.menu.setValue()
+    public updateMenuItem(newFood:Food){
+      /*this.menu.map((food) => {
+           if (food.id == newFood.id) {
+              food = newFood;
+           } 
+      });*/
+    this.menu.forEach((food, index) => {
+          if (food.id == newFood.id) {
+              food = newFood;
+          }
+      });
+
     }
-    public deleteMenuItem(food:Food) {
+    public deleteMenuItem(foodDel:Food) {
+      console.log(this.menu.length);
       
+      this.menu.forEach((food, index) => {
+        if (food.id == foodDel.id) {
+            this.menu.splice(index,1);
+            
+            console.log(this.menu.length);          
+        }
+      })
+      
+    }
+  
+    public getOne(id:number):Food | undefined{
+      return this.menu.find(food => food.id === id);
     }
 }
