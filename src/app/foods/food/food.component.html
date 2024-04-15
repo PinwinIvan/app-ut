@@ -13,9 +13,14 @@
           </p>
         </mat-card-content>
     
-        <mat-card-actions flex>
-          <button mat-raised-button color="accent">Actualizar</button>
+        <mat-card-actions class="flex gap-4">
+          
+          <a [routerLink]="['/food/form', food.id]" mat-raised-button color="accent">Actualizar</a>
           <button mat-raised-button color="warn" (click)="openDialog(food)">Borrar</button>
+          <a [routerLink]="['/food/food-details', food.id]" mat-flat-button color="primary" extended>
+            Ver <mat-icon>visibility</mat-icon> 
+          </a>
+          
         </mat-card-actions>
     </mat-card>
 }

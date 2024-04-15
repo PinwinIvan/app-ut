@@ -1,7 +1,5 @@
-
-
-<mat-toolbar [color]="'primary'">
-  <button mat-icon-button (click)="open()" class="example-icon" aria-label="Example icon-button with menu icon">
+<mat-toolbar [color]="'primary'" class="">
+  <button mat-icon-button (click)="snav.toggle()" class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>menu</mat-icon>
   </button>
   <span>My App</span>
@@ -14,29 +12,27 @@
   </button>
 </mat-toolbar>
 
-<mat-drawer-container class="w-full h-full pt-10">
-  <mat-drawer mode="side" [opened]="opened" class="w-60 px-2 pt-16">
-    
+<mat-sidenav-container class="w-full h-full pt-10" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" #snav [opened]="mobileQuery.matches ? false: true"
+    class="w-60 px-2 pt-16" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+
     <mat-nav-list>
       @for (link of links; track link) {
-        <mat-list-item [routerLink]="link.routerLink">
-           <a matListItemTitle href="...">{{ link.label }}</a>
-           <button mat-icon-button matListItemMeta>
-              <mat-icon>{{link.icon}}</mat-icon>
-           </button>
-        </mat-list-item>
+      <mat-list-item [routerLink]="link.routerLink">
+        <a matListItemTitle href="...">{{ link.label }}</a>
+        <button mat-icon-button matListItemMeta>
+          <mat-icon>{{link.icon}}</mat-icon>
+        </button>
+      </mat-list-item>
       }
     </mat-nav-list>
-  
-
-  </mat-drawer>
 
 
-<mat-drawer-content>
-  <ng-content></ng-content>
-</mat-drawer-content>
-
-</mat-drawer-container>
+  </mat-sidenav>
 
 
+  <mat-sidenav-content>
+    <ng-content></ng-content>
+  </mat-sidenav-content>
 
+</mat-sidenav-container>

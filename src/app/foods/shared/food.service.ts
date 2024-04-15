@@ -1,17 +1,25 @@
 import { Injectable } from '@angular/core';
-import {Food} from './food.model'
-import { log } from 'console';
+import { Food } from './food.model'
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class FoodService {
-  menu:Food[]=[
+  API_URL: string = '';
+
+
+
+
+
+  menu: Food[] = [
     {
-      id:1,
-      name:'Pizza',
-      description:'1800KCal',
+      id: 1,
+      name: 'Pizza',
+      description: '1800KCal',
       image: 'https://www.bhg.com/thmb/49ZhpV0sEAvrQGm55x0VIk7tuSQ=/1244x0/filters:no_upscale():strip_icc()/deep-dish-pizza-R162090-31bde0c81270469d8bdbc3c25107eda6.jpg',
       category: 'food',
       price: 250
@@ -19,7 +27,7 @@ export class FoodService {
     {
       id: 2,
       name: 'Tacos al Pastor',
-      description:'6tacos',
+      description: '6tacos',
       image: 'https://www.comedera.com/wp-content/uploads/2017/08/tacos-al-pastor-receta.jpg',
       category: 'food',
       price: 120
@@ -49,7 +57,7 @@ export class FoodService {
       price: 180
     },
     {
-      id:6,
+      id: 6,
       name: 'Margarita de Jamaica',
       description: 'Sos',
       image: 'https://assets.tmecosys.com/image/upload/t_web767x639/img/recipe/ras/Assets/cebd1e0a0bb36d8861c139c8382bd69a/Derivates/4c9bd240ee8ccf662635f8a7f89c65e0f30ac08a.jpg',
@@ -57,7 +65,7 @@ export class FoodService {
       price: 50
     },
     {
-      id:7,
+      id: 7,
       name: 'Enchiladas Verdes',
       description: 'LA Especialidas',
       image: 'https://cdn0.recetasgratis.net/es/posts/3/5/2/enchiladas_verdes_mexicanas_42253_orig.jpg',
@@ -74,42 +82,24 @@ export class FoodService {
     }
   ]
 
-    constructor(){}
 
-    getAllFoods():Food[]{
-      return this.menu;
-      
-    }
-    public addNewMenuItem(food:Food){
-      this.menu.push(food)
-    }
-    public updateMenuItem(newFood:Food){
-      /*this.menu.map((food) => {
-           if (food.id == newFood.id) {
-              food = newFood;
-           } 
-      });*/
-    this.menu.forEach((food, index) => {
-          if (food.id == newFood.id) {
-              food = newFood;
-          }
-      });
+  constructor(private foodHttp: HttpClient) {
+    this.API_URL = `${environment.API_URL}`
+  }
 
-    }
-    public deleteMenuItem(foodDel:Food) {
-      console.log(this.menu.length);
-      
-      this.menu.forEach((food, index) => {
-        if (food.id == foodDel.id) {
-            this.menu.splice(index,1);
-            
-            console.log(this.menu.length);          
-        }
-      })
-      
-    }
-  
-    public getOne(id:number):Food | undefined{
-      return this.menu.find(food => food.id === id);
-    }
+  public getAllArticles(): Observable<Food[]> {
+    return this.foodHttp.get<Food[]>(this.API_URL + 'food/all')
+  }
+
+  public addFood(food: Food): Observable<Food> {
+    return this.foodHttp.post<Food>(this.API_URL + 'food/save', food)
+  }
+
+  public getAnArticle(id: number): Observable<Food> {
+    return this.foodHttp.get<Food>(this.API_URL + 'food/find/' + id)
+  }
+
+  public delAnArticle(delAnArticle: Food): Observable<unknown> {
+    return this.foodHttp.delete(this.API_URL + 'food/delete/' + delAnArticle.id)
+  }
 }

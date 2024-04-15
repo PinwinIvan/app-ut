@@ -1,55 +1,57 @@
-<form [formGroup]="addMenuItem" class="max-w-3xl p-4">
-<!--Name-->
-<div class="example-container pb-2">
-  <mat-form-field class="w-full" appearance="outline">
-    <mat-label>Nombre</mat-label>
-    <input matInput formControlName="foodName" placeholder="Nombre del Platillo" required>
+<div class="flex flex-col-reverse lg:flex-row gap-6 w-full items-center">
+<form [formGroup]="addMenuItem" class="w-full lg:w-1/2 p-4">
+  <h1 class="text-3xl font-semibold p-4">{{edit ? 'Editando articulo' : 'Añadir articulo'}}</h1>
+  <!--Name-->
+  <div class="example-container pb-2">
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="foodName" placeholder="Nombre del Platillo" required [value]="food?.name">
       @if (foodName?.invalid && (foodName?.dirty || foodName?.touched)) {
-        <mat-error>
+      <mat-error>
         @if (foodName?.hasError('required')) {
         <span class="text-xs">Este campo no puede estar vacio.</span>
         }
-        </mat-error>
-      }
-  </mat-form-field>
-</div>
-<!--Category-->
-<div class="pb-2">  
-  <mat-form-field appearance="outline">
-    <mat-label>Category</mat-label>
-    <mat-select formControlName="foodCategory" required>
-      <mat-option value="drink">Bebida</mat-option>
-      <mat-option value="food">Comida</mat-option>
-    </mat-select>
-    @if (foodCategory?.invalid && (foodCategory?.dirty || foodCategory?.touched)) {
-      <mat-error>
-      @if (foodCategory?.hasError('required')) {
-      <span class="text-xs">Este campo no puede estar vacio.</span>
-      }
       </mat-error>
-    }
-  </mat-form-field>
-</div>
-<!--Description-->
-<div class="pb-2">
-  <mat-form-field class="w-full" appearance="outline">
-    <mat-label>Descripción</mat-label>
-    <textarea matInput formControlName="foodDesc" required></textarea>
-    
-    @if (foodDesc?.invalid && (foodDesc?.dirty || foodDesc?.touched)){
+      }
+    </mat-form-field>
+  </div>
+  <!--Category-->
+  <div class="pb-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="foodCategory" required>
+        <mat-option value="drink">Bebida</mat-option>
+        <mat-option value="food">Comida</mat-option>
+      </mat-select>
+      @if (foodCategory?.invalid && (foodCategory?.dirty || foodCategory?.touched)) {
+      <mat-error>
+        @if (foodCategory?.hasError('required')) {
+        <span class="text-xs">Este campo no puede estar vacio.</span>
+        }
+      </mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <!--Description-->
+  <div class="pb-2">
+    <mat-form-field class="w-full" appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="foodDesc" required></textarea>
+
+      @if (foodDesc?.invalid && (foodDesc?.dirty || foodDesc?.touched)){
       <mat-error>
         @if (foodDesc?.hasError('required')) {
-          <span class="text-xs">Campo Requerido.</span>
+        <span class="text-xs">Campo Requerido.</span>
         }
         @if (foodDesc?.hasError('minLength')) {
-          <span class="text-xs">Minimo requerido de {{foodDesc?.getError('minLength').requiredLength}} caracteres, 
-                solo hay {{foodDesc?.getError('minLength').actualLength}} caracteres.</span>
+        <span class="text-xs">Minimo requerido de {{foodDesc?.getError('minLength').requiredLength}} caracteres,
+          solo hay {{foodDesc?.getError('minLength').actualLength}} caracteres.</span>
         }
       </mat-error>
-    }
-  </mat-form-field>
-</div>
-<!--Precio-->
+      }
+    </mat-form-field>
+  </div>
+  <!--Precio-->
   <div class="example-container pb-2">
     <mat-form-field class="w-full" appearance="outline">
       <mat-label>Precio</mat-label>
@@ -57,33 +59,37 @@
       <span matTextPrefix>$&nbsp;</span>
       <span matTextSuffix>.00</span>
 
-        @if (foodPrice?.invalid && (foodPrice?.dirty || foodPrice?.touched)) {
-          <mat-error>
-          @if (foodPrice?.hasError('required')) {
-          <span class="text-xs">Este campo no puede estar vacio.</span>
-          }
-          @if (foodPrice?.hasError('min')){
-              <span class="text-xs">El precio minimo es de {{foodPrice?.getError('min').min}}</span>
-          }
-          </mat-error>
+      @if (foodPrice?.invalid && (foodPrice?.dirty || foodPrice?.touched)) {
+      <mat-error>
+        @if (foodPrice?.hasError('required')) {
+        <span class="text-xs">Este campo no puede estar vacio.</span>
         }
+        @if (foodPrice?.hasError('min')){
+        <span class="text-xs">El precio minimo es de {{foodPrice?.getError('min').min}}</span>
+        }
+      </mat-error>
+      }
     </mat-form-field>
   </div>
-<!--Imagen-->
+  <!--Imagen-->
   <div class="example-container pb-2">
     <mat-form-field class="w-full" appearance="outline">
       <mat-label>Imagen</mat-label>
       <input matInput formControlName="foodImage" placeholder="Ingrese URL." required>
-        @if (foodImage?.invalid && (foodImage?.dirty || foodImage?.touched)) {
-          <mat-error>
-          @if (foodImage?.hasError('required')) {
-          <span class="text-xs">Este campo no puede estar vacio.</span>
-          }
-          </mat-error>
-        } 
+      @if (foodImage?.invalid && (foodImage?.dirty || foodImage?.touched)) {
+      <mat-error>
+        @if (foodImage?.hasError('required')) {
+        <span class="text-xs">Este campo no puede estar vacio.</span>
+        }
+      </mat-error>
+      }
     </mat-form-field>
   </div>
-  <button mat-raised-button color="#000000" (click)="sendMenuItem()">Enviar Datos</button>
-  <button mat-raised-button color="#000000">Errores</button>
+  <button mat-raised-button color="#000000" (click)="edit ? updateMenuItem() : sendMenuItem()">{{edit ?
+    'Actualizar':'Agregar'}}</button>
 
 </form>
+<div class="w-full lg:w-1/2 m-1">
+    <img class="rounded-md w-full aspect-auto object-contain" src="{{foodImage?.value}}">
+  </div>
+</div>
